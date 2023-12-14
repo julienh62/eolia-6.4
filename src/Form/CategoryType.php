@@ -15,10 +15,17 @@ class CategoryType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('categorySetting', EntityType::class, [
+            ->add('CategorySetting', EntityType::class, [
+                'class' => CategorySettings::class,
+                'multiple' => true, // Permettre plusieurs sélections
+                'expanded' => true, // Afficher comme des cases à cocher
+                'label' => 'Select category setting(s)',
+                'required' => false, // Optionnel
+            ])
+           /* ->add('categorySetting', EntityType::class, [
                 'class' => CategorySettings::class,
 'choice_label' => 'id',
-            ])
+            ])*/
         ;
     }
 

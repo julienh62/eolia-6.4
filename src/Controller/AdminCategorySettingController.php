@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\ActivitieCategorySettings;
 use App\Entity\CategorySettings;
+use App\Entity\Category;
 use App\Form\CategorySettingsType;
+use App\Repository\CategoryRepository;
 use App\Repository\CategorySettingsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,10 +14,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/categorysetting')]
+#[Route('/admin')]
 class AdminCategorySettingController extends AbstractController
 {
-    #[Route('/', name: 'app_admin_category_setting_index', methods: ['GET'])]
+    #[Route('/categorysetting', name: 'app_admin_category_setting_index', methods: ['GET'])]
     public function index(CategorySettingsRepository $categorySettingsRepository): Response
     {
         return $this->render('admin_category_setting/index.html.twig', [
@@ -22,7 +25,60 @@ class AdminCategorySettingController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_admin_category_setting_new', methods: ['GET', 'POST'])]
+    #[Route('/categorysettingChoose', name: 'app_admin_formChooseCategory')]
+    public function chooseCategoryForm(CategorySettingsRepository $categorySettingsRepository): Response
+    {
+        $categoriesSettings = $categorySettingsRepository->findAll();
+        return $this->render('admin_category_setting/chooseCategorySetting.html.twig', [
+            'categoriesSettings' => $categoriesSettings,
+        ]);
+    }
+
+
+
+    #[Route('/categorysettingnew/{typeCategorySettings}', name: 'app_admin_category_new', methods: ['GET', 'POST'])]
+    public function new( Request $request,CategorySettingsRepository $categorySettingsRepository,
+      EntityManagerInterface $entityManager, string $typeCategorySettings): Response
+    {
+        $categoriesSettings = $categorySettingsRepository->findAll();
+
+        // Filtrer les objets pour n'inclure que les CategorySettings
+       $filteredCategoriesSettings = array_filter($categoriesSettings, function ($categori)
+        {
+            return $categori instanceof CategorySettings && !($categori instanceof ActivitieCategorySettings);
+        });
+       //dd($filteredCategoriesSettings);
+
+        foreach ($filteredCategoriesSettings as $categorySetting) {
+            $categoryTitle = $categorySetting->getCategory()->getTitle();
+          //  dd($categoryTitle); // Ceci affichera le titre de la catégorie pour chaque CategorySettings
+        }
+
+
+        $category  = new ("App\\Entity\\".$typeCategorySettings)();
+
+
+        $form = $this->createForm("App\\Form\\".$typeCategorySettings."Type", $category);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($category);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_admin_category_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('admin_category_setting/new.html.twig', [
+            'category' => $category,
+            'form' => $form,
+            'categoriesSettings' => $categoriesSettings,
+            'filteredCategoriesSettings' => $filteredCategoriesSettings
+
+        ]);
+    }
+
+  /*   #[Route('/new', name: 'app_admin_category_setting_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $categorySetting = new CategorySettings();
@@ -40,9 +96,8 @@ class AdminCategorySettingController extends AbstractController
             'category_setting' => $categorySetting,
             'form' => $form,
         ]);
-    }
-
-    #[Route('/{id}', name: 'app_admin_category_setting_show', methods: ['GET'])]
+    } */
+    #[Route('/categorysetting/{id}', name: 'app_admin_category_setting_show', methods: ['GET'])]
     public function show(CategorySettings $categorySetting): Response
     {
         return $this->render('admin_category_setting/show.html.twig', [
@@ -50,7 +105,7 @@ class AdminCategorySettingController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_admin_category_setting_edit', methods: ['GET', 'POST'])]
+    #[Route('/categorysetting/{id}/edit', name: 'app_admin_category_setting_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, CategorySettings $categorySetting, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(CategorySettingsType::class, $categorySetting);
@@ -68,7 +123,7 @@ class AdminCategorySettingController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_admin_category_setting_delete', methods: ['POST'])]
+    #[Route('/categorysetting/{id}', name: 'app_admin_category_setting_delete', methods: ['POST'])]
     public function delete(Request $request, CategorySettings $categorySetting, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$categorySetting->getId(), $request->request->get('_token'))) {

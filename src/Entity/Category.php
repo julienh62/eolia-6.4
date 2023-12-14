@@ -18,7 +18,7 @@ class Category
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Calendar::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Calendar::class)]
     private Collection $calendars;
 
     #[ORM\OneToOne(inversedBy: 'category', cascade: ['persist', 'remove'])]
@@ -32,6 +32,10 @@ class Category
     public function getId(): ?int
     {
         return $this->id;
+    }
+    public function __toString()
+    {
+        return $this->title;
     }
 
     public function getTitle(): ?string
@@ -53,7 +57,7 @@ class Category
     {
         return $this->calendars;
     }
-
+/*
     public function addCalendar(Calendar $calendar): static
     {
         if (!$this->calendars->contains($calendar)) {
@@ -62,7 +66,7 @@ class Category
         }
 
         return $this;
-    }
+    }*/
 
     public function removeCalendar(Calendar $calendar): static
     {

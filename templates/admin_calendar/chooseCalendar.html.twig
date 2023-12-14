@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello choose CalendarController!{% endblock %}
+
+{% block body %}
+
+    <div class="containerchooseca">
+        <h1>Choix de calendar  </h1>
+
+        <!-- Content before the links -->
+
+        <p>
+            <a href="{{ path('app_admin_calendar_new', {'typeCalendar': 'Activitie'}) }}" class="btn btn-success">Créer nouvelle activité</a>
+
+            <a href="{{ path('app_admin_calendar_new', {'typeCalendar': 'Calendar'}) }}" class="btn btn-danger">Créer Staff Calendar</a>
+        </p>
+
+    </div>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+

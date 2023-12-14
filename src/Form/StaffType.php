@@ -2,28 +2,27 @@
 
 namespace App\Form;
 
-use App\Entity\ActivitieCategorySettings;
-use App\Entity\Category;
+use App\Entity\Calendar;
+use App\Entity\Staff;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ActivitieCategorySettingsType extends CategorySettingsType
+class StaffType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        parent::buildForm($builder,$options);
         $builder
+            ->add('fullName')
 
-            ->add('price')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => ActivitieCategorySettings::class,
+            'data_class' => Staff::class,
         ]);
     }
 }

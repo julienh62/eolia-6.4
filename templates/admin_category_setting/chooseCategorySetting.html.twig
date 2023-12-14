@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello choose cat Controller!{% endblock %}
+
+{% block body %}
+
+    <div class="containerchooseca">
+        <h1>Choix de categorie </h1>
+
+        <!-- Content before the links -->
+    {#  {% for categori in categoriesSettings %}
+        <p>
+            <a href=" {{ path('app_admin_category_new', {'typeCategorySettings': categori}) }} " class="btn btn-success">Créer nouvelle activité : {{ categori}}</a>
+        </p>
+
+ {% endfor %}  #}
+        <p>
+           <a href="{{ path('app_admin_category_new', {'typeCategorySettings': 'ActivitieCategorySettings'}) }}" class="btn btn-success">Créer nouvelle activité/client </a>
+        </p>
+        <p>
+            <a href="{{ path('app_admin_category_new', {'typeCategorySettings': 'CategorySettings'}) }}" class="btn btn-success">Créer nouvelle activité/staff</a>
+        </p>
+    </div>
+
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+

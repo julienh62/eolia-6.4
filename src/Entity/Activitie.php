@@ -18,7 +18,10 @@ class Activitie extends Calendar
     #[ORM\Column]
     private ?int $modifiedPrice = null;
 
-
+  /*  #[ORM\ManyToOne(inversedBy: 'calendars')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Category $category = null;
+*/
     public function getStock(): ?int
     {
         return $this->stock;
@@ -42,6 +45,7 @@ class Activitie extends Calendar
 
         return $this;
     }
+
 
     public function getModifiedPrice(): ?int
     {

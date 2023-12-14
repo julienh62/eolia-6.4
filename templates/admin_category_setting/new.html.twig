@@ -3,7 +3,14 @@
 {% block title %}New CategorySettings{% endblock %}
 
 {% block body %}
-    <h1>Create new CategorySettings</h1>
+    {% for categori in filteredCategoriesSettings %}
+        <h1>Creates {{ categori.title }}</h1>
+
+        <!-- Ajoutez ici d'autres informations à afficher pour chaque categori -->
+    {% endfor %}
+
+
+
 
     {{ include('admin_category_setting/_form.html.twig') }}
 
