@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CategorySettings index{% endblock %}
+
+{% block body %}
+    <h1>CategorySettings index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>TextColor</th>
+                <th>BorderColor</th>
+                <th>BackGroundColor</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for category_setting in category_settings %}
+            <tr>
+                <td>{{ category_setting.id }}</td>
+                <td>{{ category_setting.title }}</td>
+                <td>{{ category_setting.textColor }}</td>
+                <td>{{ category_setting.borderColor }}</td>
+                <td>{{ category_setting.backGroundColor }}</td>
+                <td>
+                    <a href="{{ path('app_admin_category_setting_show', {'id': category_setting.id}) }}">show</a>
+                    <a href="{{ path('app_admin_category_setting_edit', {'id': category_setting.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_category_setting_new') }}">Create new</a>
+{% endblock %}

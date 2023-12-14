@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit ActivitieCategorySettings{% endblock %}
+
+{% block body %}
+    <h1>Edit ActivitieCategorySettings</h1>
+
+    {{ include('admin_activitie_category_settings/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_admin_activitie_category_settings_index') }}">back to list</a>
+
+    {{ include('admin_activitie_category_settings/_delete_form.html.twig') }}
+{% endblock %}

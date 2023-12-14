@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ActivitieCategorySettings index{% endblock %}
+
+{% block body %}
+    <h1>ActivitieCategorySettings index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>TextColor</th>
+                <th>BorderColor</th>
+                <th>BackGroundColor</th>
+                <th>Price</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for activitie_category_setting in activitie_category_settings %}
+            <tr>
+                <td>{{ activitie_category_setting.id }}</td>
+                <td>{{ activitie_category_setting.title }}</td>
+                <td>{{ activitie_category_setting.textColor }}</td>
+                <td>{{ activitie_category_setting.borderColor }}</td>
+                <td>{{ activitie_category_setting.backGroundColor }}</td>
+                <td>{{ activitie_category_setting.price }}</td>
+                <td>
+                    <a href="{{ path('app_admin_activitie_category_settings_show', {'id': activitie_category_setting.id}) }}">show</a>
+                    <a href="{{ path('app_admin_activitie_category_settings_edit', {'id': activitie_category_setting.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_activitie_category_settings_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New CategorySettings{% endblock %}
+
+{% block body %}
+    <h1>Create new CategorySettings</h1>
+
+    {{ include('admin_category_setting/_form.html.twig') }}
+
+    <a href="{{ path('app_admin_category_setting_index') }}">back to list</a>
+{% endblock %}

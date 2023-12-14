@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ActivitieCategorySettings{% endblock %}
+
+{% block body %}
+    <h1>ActivitieCategorySettings</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ activitie_category_setting.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ activitie_category_setting.title }}</td>
+            </tr>
+            <tr>
+                <th>TextColor</th>
+                <td>{{ activitie_category_setting.textColor }}</td>
+            </tr>
+            <tr>
+                <th>BorderColor</th>
+                <td>{{ activitie_category_setting.borderColor }}</td>
+            </tr>
+            <tr>
+                <th>BackGroundColor</th>
+                <td>{{ activitie_category_setting.backGroundColor }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ activitie_category_setting.price }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_activitie_category_settings_index') }}">back to list</a>
+
+    <a href="{{ path('app_admin_activitie_category_settings_edit', {'id': activitie_category_setting.id}) }}">edit</a>
+
+    {{ include('admin_activitie_category_settings/_delete_form.html.twig') }}
+{% endblock %}

@@ -21,6 +21,9 @@ class Category
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Calendar::class, orphanRemoval: true)]
     private Collection $calendars;
 
+    #[ORM\OneToOne(inversedBy: 'category', cascade: ['persist', 'remove'])]
+    private ?CategorySettings $categorySetting = null;
+
     public function __construct()
     {
         $this->calendars = new ArrayCollection();
@@ -69,6 +72,18 @@ class Category
                 $calendar->setCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCategorySetting(): ?CategorySettings
+    {
+        return $this->categorySetting;
+    }
+
+    public function setCategorySetting(?CategorySettings $categorySetting): static
+    {
+        $this->categorySetting = $categorySetting;
 
         return $this;
     }
