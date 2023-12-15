@@ -2,13 +2,21 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use App\Repository\CalendarRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ReflectionClass;
 
-#[ORM\Entity(repositoryClass: CalendarRepository::class)]
-class Calendar
+
+ #[ORM\Entity]
+
+ #[ORM\Table(name: "calendar")]
+ #[ORM\InheritanceType("SINGLE_TABLE")]
+ #[ORM\DiscriminatorColumn(name: "calendarType", type: "string")]
+ #[ORM\DiscriminatorMap(["activitie" => Activitie::class, "staffSchedule" => StaffSchedule::class])]
+ abstract class Calendar
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

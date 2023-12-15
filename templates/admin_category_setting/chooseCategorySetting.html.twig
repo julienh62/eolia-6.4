@@ -5,7 +5,7 @@
 {% block body %}
 
     <div class="containerchooseca">
-        <h1>Choix de categorie </h1>
+        <h1>Creates Réglages </h1>
 
         <!-- Content before the links -->
     {#  {% for categori in categoriesSettings %}
@@ -15,10 +15,10 @@
 
  {% endfor %}  #}
         <p>
-           <a href="{{ path('app_admin_category_new', {'typeCategorySettings': 'ActivitieCategorySettings'}) }}" class="btn btn-success">Créer nouvelle activité/client </a>
+           <a href="{{ path('app_admin_category_setting_new', {'typeCategorySettings': 'ActivitieCategorySettings'}) }}" class="btn btn-success">Créer réglages activité/client </a>
         </p>
         <p>
-            <a href="{{ path('app_admin_category_new', {'typeCategorySettings': 'CategorySettings'}) }}" class="btn btn-success">Créer nouvelle activité/staff</a>
+            <a href="{{ path('app_admin_category_setting_new', {'typeCategorySettings': 'CategorySettings'}) }}" class="btn btn-success">Créer réglages activité/staff</a>
         </p>
     </div>
 

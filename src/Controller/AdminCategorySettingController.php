@@ -36,23 +36,11 @@ class AdminCategorySettingController extends AbstractController
 
 
 
-    #[Route('/categorysettingnew/{typeCategorySettings}', name: 'app_admin_category_new', methods: ['GET', 'POST'])]
+    #[Route('/categorysettingnew/{typeCategorySettings}', name: 'app_admin_category_setting_new', methods: ['GET', 'POST'])]
     public function new( Request $request,CategorySettingsRepository $categorySettingsRepository,
       EntityManagerInterface $entityManager, string $typeCategorySettings): Response
     {
         $categoriesSettings = $categorySettingsRepository->findAll();
-
-        // Filtrer les objets pour n'inclure que les CategorySettings
-       $filteredCategoriesSettings = array_filter($categoriesSettings, function ($categori)
-        {
-            return $categori instanceof CategorySettings && !($categori instanceof ActivitieCategorySettings);
-        });
-       //dd($filteredCategoriesSettings);
-
-        foreach ($filteredCategoriesSettings as $categorySetting) {
-            $categoryTitle = $categorySetting->getCategory()->getTitle();
-          //  dd($categoryTitle); // Ceci affichera le titre de la catégorie pour chaque CategorySettings
-        }
 
 
         $category  = new ("App\\Entity\\".$typeCategorySettings)();
@@ -66,14 +54,14 @@ class AdminCategorySettingController extends AbstractController
             $entityManager->persist($category);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_admin_category_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_admin_category_setting_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('admin_category_setting/new.html.twig', [
             'category' => $category,
             'form' => $form,
             'categoriesSettings' => $categoriesSettings,
-            'filteredCategoriesSettings' => $filteredCategoriesSettings
+
 
         ]);
     }

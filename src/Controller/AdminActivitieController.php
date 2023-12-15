@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Activitie;
-use App\Form\Activitie1Type;
+use App\Form\ActivitieType;
 use App\Repository\ActivitieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,11 +22,11 @@ class AdminActivitieController extends AbstractController
         ]);
     }
 
- /*   #[Route('/new', name: 'app_admin_activitie_new', methods: ['GET', 'POST'])]
+  /* #[Route('/new', name: 'app_admin_activitie_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $activitie = new Activitie();
-        $form = $this->createForm(Activitie1Type::class, $activitie);
+        $form = $this->createForm(ActivitieType::class, $activitie);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -40,8 +40,8 @@ class AdminActivitieController extends AbstractController
             'activitie' => $activitie,
             'form' => $form,
         ]);
-    }*/
-
+    }
+*/
     #[Route('/{id}', name: 'app_admin_activitie_show', methods: ['GET'])]
     public function show(Activitie $activitie): Response
     {
@@ -50,10 +50,10 @@ class AdminActivitieController extends AbstractController
         ]);
     }
 
-   /* #[Route('/{id}/edit', name: 'app_admin_activitie_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_admin_activitie_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Activitie $activitie, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(Activitie1Type::class, $activitie);
+        $form = $this->createForm(ActivitieType::class, $activitie);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -66,7 +66,7 @@ class AdminActivitieController extends AbstractController
             'activitie' => $activitie,
             'form' => $form,
         ]);
-    }  */
+    }
 
     #[Route('/{id}', name: 'app_admin_activitie_delete', methods: ['POST'])]
     public function delete(Request $request, Activitie $activitie, EntityManagerInterface $entityManager): Response

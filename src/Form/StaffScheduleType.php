@@ -3,29 +3,25 @@
 namespace App\Form;
 
 use App\Entity\Category;
-use App\Entity\CategorySettings;
+use App\Entity\Staff;
+use App\Entity\StaffSchedule;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CategorySettingsType extends AbstractType
+class StaffScheduleType extends CalendarType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder
-            ->add('title')
-            ->add('textColor')
-            ->add('borderColor')
-            ->add('backGroundColor')
-            ->add('category')
-        ;
+        parent::buildForm($builder,$options);
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => CategorySettings::class,
+            'data_class' => StaffSchedule::class,
         ]);
     }
 }

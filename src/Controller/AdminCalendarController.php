@@ -44,10 +44,10 @@ class AdminCalendarController extends AbstractController
             $entityManager->persist($calendar);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_admin_activitie_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_admin_calendar_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('admin_activitie/new.html.twig', [
+        return $this->render('admin_calendar/new.html.twig', [
             'calendar' => $calendar,
             'form' => $form,
         ]);

@@ -28,6 +28,22 @@ class CategorySettingsRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+        /**
+        //     * @return CategorySettings[] Returns an array of CategorySettings objects
+        //     */
+       public function findByExampleField($value): array
+        {
+            return $this->createQueryBuilder('c')
+                ->andWhere('c.exampleField = :val')
+                ->setParameter('val', $value)
+                ->orderBy('c.id', 'ASC')
+                ->setMaxResults(10)
+                ->getQuery()
+                ->getResult()
+            ;
+        }
+
+
 //    /**
 //     * @return CategorySettings[] Returns an array of CategorySettings objects
 //     */
