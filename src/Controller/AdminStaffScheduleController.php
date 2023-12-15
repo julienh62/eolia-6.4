@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/staff/schedule')]
+#[Route('/admin/staffschedule')]
 class AdminStaffScheduleController extends AbstractController
 {
     #[Route('/', name: 'app_admin_staff_schedule_index', methods: ['GET'])]

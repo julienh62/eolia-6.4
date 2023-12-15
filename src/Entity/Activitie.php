@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ActivitieRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -18,6 +20,8 @@ class Activitie extends Calendar
 
     #[ORM\Column]
     private ?int $modifiedPrice = null;
+
+
 
 
     public function getStock(): ?int
@@ -43,7 +47,6 @@ class Activitie extends Calendar
 
         return $this;
     }
-
 
     public function getModifiedPrice(): ?int
     {

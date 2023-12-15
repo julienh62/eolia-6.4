@@ -2,23 +2,48 @@
 
 namespace App\Controller;
 
+use App\Entity\Activitie;
 use App\Entity\Calendar;
+use App\Entity\StaffSchedule;
 use App\Form\CalendarType;
+use App\Repository\ActivitieRepository;
 use App\Repository\CalendarRepository;
+use App\Repository\StaffScheduleRepository;
+use App\Service\Formatdate;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/calendar')]
+#[Route('/admin')]
 class AdminCalendarController extends AbstractController
 {
-    #[Route('/', name: 'app_admin_calendar_index', methods: ['GET'])]
-    public function index(CalendarRepository $calendarRepository): Response
+
+    #[Route('/calendarshow', name: 'app_admin_calendar_index', methods: ['GET'])]
+    public function index(CalendarRepository $calendarRepository, ActivitieRepository $activitieRepository,
+      Formatdate $formatdate , StaffScheduleRepository $staffScheduleRepository): Response
     {
+        $activities = $activitieRepository->findAll();
+        $staffSchedules = $staffScheduleRepository->findAll();
+
+        setlocale(LC_TIME, 'fr_FR');
+
+        // Formate les dates avec le service Formatdate
+        foreach ($activities as $activitie) {
+            $activitie->formattedStartDate = $formatdate->formatCustomDate($activitie->getStart());
+            $activitie->formattedEndDate = $formatdate->formatCustomDate($activitie->getEnd());
+        }
+        // Formate les dates avec le service Formatdate
+        foreach ($staffSchedules as $staffSchedule) {
+            $staffSchedule->formattedStartDate = $formatdate->formatCustomDate($staffSchedule->getStart());
+            $staffSchedule->formattedEndDate = $formatdate->formatCustomDate($staffSchedule->getEnd());
+        }
+
         return $this->render('admin_calendar/index.html.twig', [
-            'calendars' => $calendarRepository->findAll(),
+            'staffSchedules' => $staffSchedules,
+            'activities' => $activities,
+
         ]);
     }
 

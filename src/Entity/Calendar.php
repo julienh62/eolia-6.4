@@ -26,11 +26,12 @@ use ReflectionClass;
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $start = null;
+     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+     private ?\DateTimeInterface $start = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $end = null;
+     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+     private ?\DateTimeInterface $end = null;
+
 
     #[ORM\ManyToOne(inversedBy: 'calendars')]
     #[ORM\JoinColumn(nullable: false)]
@@ -62,29 +63,29 @@ use ReflectionClass;
         return $this;
     }
 
-    public function getStart(): ?\DateTimeImmutable
-    {
-        return $this->start;
-    }
+     public function getStart(): ?\DateTimeInterface
+     {
+         return $this->start;
+     }
 
-    public function setStart(\DateTimeImmutable $start): static
-    {
-        $this->start = $start;
+     public function setStart(\DateTimeInterface $start): self
+     {
+         $this->start = $start;
 
-        return $this;
-    }
+         return $this;
+     }
 
-    public function getEnd(): ?\DateTimeImmutable
-    {
-        return $this->end;
-    }
+     public function getEnd(): ?\DateTimeInterface
+     {
+         return $this->end;
+     }
 
-    public function setEnd(\DateTimeImmutable $end): static
-    {
-        $this->end = $end;
+     public function setEnd(\DateTimeInterface $end): self
+     {
+         $this->end = $end;
 
-        return $this;
-    }
+         return $this;
+     }
 
     public function getCategory(): ?Category
     {
