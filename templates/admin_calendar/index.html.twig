@@ -18,25 +18,25 @@
                 <th>actions</th>
             </tr>
         </thead>
-        <tbody>
+   {# <tbody>
         {% for activitie in activities %}
             <tr>
                 <td>{{ activitie.id }}</td>
                 <td>{{ activitie.title }}</td>
                 <td>{{ activitie.category }}</td>
                 <td>{{ activitie.category.categorySetting.borderColor }}</td>
-              {#  <td>{{ activitie.category.activitieCategorySettings.price }}</td>#}
-              <td>  {% for staff in activitie.staffs %}
-                    {{ staff.fullName }}
-                {% endfor %}
-              </td>
-                <td>{{ activitie.formattedStartDate ? activitie.formattedStartDate| trans : '' }}</td>
-                <td>{{ activitie.formattedEndDate ? activitie.formattedEndDate| trans : ''}}</td>
-                <td>
-                    <a href="{{ path('app_admin_calendar_show', {'id': activitie.id}) }}">show</a>
-                    <a href="{{ path('app_admin_calendar_edit', {'id': activitie.id}) }}">edit</a>
-                </td>
-            </tr>
+
+        <td>  {% for staff in activitie.staffs %}
+                {{ staff.fullName }}
+            {% endfor %}
+        </td>
+        <td>{{ activitie.formattedStartDate ? activitie.formattedStartDate| trans : '' }}</td>
+        <td>{{ activitie.formattedEndDate ? activitie.formattedEndDate| trans : ''}}</td>
+        <td>
+            <a href="{{ path('app_admin_calendar_show', {'id': activitie.id}) }}">show</a>
+            <a href="{{ path('app_admin_calendar_edit', {'id': activitie.id}) }}">edit</a>
+        </td>
+        </tr>
         {% else %}
             <tr>
                 <td colspan="5">no records found</td>
@@ -45,36 +45,61 @@
         </tbody>
     </table>
 
-    <table class="table">
-        <thead>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Category</th>
+        <th>BorderColor</th>
+        <th>Staff</th>
+        <th>Start</th>
+        <th>End</th>
+        <th>actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for staffSchedule in staffSchedules %}
         <tr>
-            <th>Id</th>
-            <th>Title</th>
-            <th>Category</th>
-            <th>BorderColor</th>
-            <th>Staff</th>
-            <th>Start</th>
-            <th>End</th>
-            <th>actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for staffSchedule in staffSchedules %}
-            <tr>
-                <td>{{ staffSchedule.id }}</td>
-                <td>{{ staffSchedule.title }}</td>
-                <td>{{ staffSchedule.category }}</td>
-                <td>{{ staffSchedule.category.categorySetting.borderColor }}</td>
-                {#  <td>{{ staffSchedule.category.staffScheduleCategorySettings.price }}</td>#}
-             <td>{% for staff in staffSchedule.staffs %}
-                      Staff:  {{ staff.fullName }}
-                 {% endfor %}</td>
+            <td>{{ staffSchedule.id }}</td>
+            <td>{{ staffSchedule.title }}</td>
+            <td>{{ staffSchedule.category }}</td>
+            <td>{{ staffSchedule.category.categorySetting.borderColor }}</td>
+            <td>{% for staff in staffSchedule.staffs %}
+                    Staff:  {{ staff.fullName }}
+                {% endfor %}</td>
 
-                <td>{{ staffSchedule.formattedStartDate ? staffSchedule.formattedEndDate| trans : '' }}</td>
-                <td>{{ staffSchedule.formattedEndDate ? staffSchedule.formattedEndDate| trans : '' }}</td>
+            <td>{{ staffSchedule.formattedStartDate ? staffSchedule.formattedEndDate| trans : '' }}</td>
+            <td>{{ staffSchedule.formattedEndDate ? staffSchedule.formattedEndDate| trans : '' }}</td>
+            <td>
+                <a href="{{ path('app_admin_calendar_show', {'id': staffSchedule.id}) }}">show</a>
+                <a href="{{ path('app_admin_calendar_edit', {'id': staffSchedule.id}) }}">edit</a>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="5">no records found</td>
+        </tr>
+    {% endfor %}
+    </tbody> #}
+
+        <tbody>
+        {% for calendar in calendars %}
+            <tr>
+                <td>{{ calendar.id }}</td>
+                <td>{{ calendar.title }}</td>
+                <td>{{ calendar.category }}</td>
+                <td>{{ calendar.category.categorySetting.borderColor }}</td>
+                {#  <td>{{ calendar.category.calendarCategorySettings.price }}</td>#}
+                <td>{% for staff in calendar.staffs %}
+                        Staff:  {{ staff.fullName }}
+                    {% endfor %}</td>
+
+                <td>{{ calendar.formattedStartDate ? calendar.formattedStartDate| trans : '' }}</td>
+                <td>{{ calendar.formattedEndDate ? calendar.formattedEndDate| trans : '' }}</td>
                 <td>
-                    <a href="{{ path('app_admin_calendar_show', {'id': staffSchedule.id}) }}">show</a>
-                    <a href="{{ path('app_admin_calendar_edit', {'id': staffSchedule.id}) }}">edit</a>
+                    <a href="{{ path('app_admin_calendar_show', {'id': calendar.id}) }}">show</a>
+                    <a href="{{ path('app_admin_calendar_edit', {'id': calendar.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -83,7 +108,10 @@
             </tr>
         {% endfor %}
         </tbody>
+
     </table>
 
     <a href="{{ path('app_admin_formChooseCalendar') }}">Create new</a>
-{% endblock %}
+
+
+    {% endblock %}

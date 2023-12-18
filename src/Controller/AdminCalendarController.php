@@ -22,14 +22,15 @@ class AdminCalendarController extends AbstractController
 
     #[Route('/calendarshow', name: 'app_admin_calendar_index', methods: ['GET'])]
     public function index(CalendarRepository $calendarRepository, ActivitieRepository $activitieRepository,
-      Formatdate $formatdate , StaffScheduleRepository $staffScheduleRepository): Response
+      Formatdate $formatdateService , StaffScheduleRepository $staffScheduleRepository): Response
     {
-        $activities = $activitieRepository->findAll();
-        $staffSchedules = $staffScheduleRepository->findAll();
+        $calendars = $calendarRepository->findAll();
+     //   $activities = $activitieRepository->findAll();
+     //   $staffSchedules = $staffScheduleRepository->findAll();
 
         setlocale(LC_TIME, 'fr_FR');
 
-        // Formate les dates avec le service Formatdate
+    /*    // Formate les dates avec le service Formatdate
         foreach ($activities as $activitie) {
             $activitie->formattedStartDate = $formatdate->formatCustomDate($activitie->getStart());
             $activitie->formattedEndDate = $formatdate->formatCustomDate($activitie->getEnd());
@@ -38,12 +39,17 @@ class AdminCalendarController extends AbstractController
         foreach ($staffSchedules as $staffSchedule) {
             $staffSchedule->formattedStartDate = $formatdate->formatCustomDate($staffSchedule->getStart());
             $staffSchedule->formattedEndDate = $formatdate->formatCustomDate($staffSchedule->getEnd());
+        }  */
+        // Formate les dates avec le service Formatdate
+        foreach ($calendars as $calendar) {
+            $calendar->formattedStartDate = $formatdateService->formatCustomDate($calendar->getStart());
+            $calendar->formattedEndDate = $formatdateService->formatCustomDate($calendar->getEnd());
         }
 
         return $this->render('admin_calendar/index.html.twig', [
-            'staffSchedules' => $staffSchedules,
-            'activities' => $activities,
-
+          //  'staffSchedules' => $staffSchedules,
+            //'activities' => $activities,
+                'calendars' => $calendars
         ]);
     }
 
@@ -58,25 +64,27 @@ class AdminCalendarController extends AbstractController
     #[Route('/new/{typeCalendar}', name: 'app_admin_calendar_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, string $typeCalendar): Response
     {
-        $calendar  = new ("App\\Entity\\".$typeCalendar)();
+
+        $calendar = new ("App\\Entity\\" . $typeCalendar)();
 
 
-        $form = $this->createForm("App\\Form\\".$typeCalendar."Type", $calendar);
-        //   $form = $this->createForm(ActivitieType::class, $activitie);
-        $form->handleRequest($request);
+            $form = $this->createForm("App\\Form\\" . $typeCalendar . "Type", $calendar);
+            //   $form = $this->createForm(ActivitieType::class, $activitie);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($calendar);
-            $entityManager->flush();
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager->persist($calendar);
+                $entityManager->flush();
 
-            return $this->redirectToRoute('app_admin_calendar_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_admin_calendar_index', [], Response::HTTP_SEE_OTHER);
+            }
+
+            return $this->render('admin_calendar/new.html.twig', [
+                'calendar' => $calendar,
+                'form' => $form,
+            ]);
         }
 
-        return $this->render('admin_calendar/new.html.twig', [
-            'calendar' => $calendar,
-            'form' => $form,
-        ]);
-    }
 
     #[Route('/{id}', name: 'app_admin_calendar_show', methods: ['GET'])]
     public function show(Calendar $calendar): Response

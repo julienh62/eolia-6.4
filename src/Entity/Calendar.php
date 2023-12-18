@@ -3,11 +3,11 @@
 namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
-use App\Repository\CalendarRepository;
+use ReflectionClass;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use ReflectionClass;
+
 
 
  #[ORM\Entity]
@@ -21,25 +21,25 @@ use ReflectionClass;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    protected ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $title = null;
+    protected ?string $title = null;
 
      #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-     private ?\DateTimeInterface $start = null;
+     protected ?\DateTimeInterface $start = null;
 
      #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-     private ?\DateTimeInterface $end = null;
+     protected ?\DateTimeInterface $end = null;
 
 
     #[ORM\ManyToOne(inversedBy: 'calendars')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Category $category = null;
+    protected ?Category $category = null;
 
     #[ORM\ManyToMany(targetEntity: Staff::class, cascade: ['remove'], inversedBy: 'calendars')]
     #[ORM\JoinColumn(nullable: true)]
-    private $staffs;
+    protected $staffs;
 
     public function __construct()
     {
@@ -125,4 +125,9 @@ use ReflectionClass;
 
         return $this;
     }
+     public function getClassName(){
+         $class = new ReflectionClass($this);
+         return $class->getShortName();
+     }
+
 }

@@ -3,18 +3,95 @@
 {% block title %}Hello AgendaController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <h1>Calendrier de toutes les séances </h1>
+    <div id="calendrier"> </div>
+{% endblock %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+{% block javascripts %}
+    {{ parent() }}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/symfony/eolia-6.4/src/Controller/AgendaController.php'|file_link(0) }}">src/Controller/AgendaController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/symfony/eolia-6.4/templates/agenda/index.html.twig'|file_link(0) }}">templates/agenda/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Your code that interacts with the DOM goes here
+        // For instance, initializing a FullCalendar instance
+
+            let calendarElt = document.getElementById('calendrier');
+            let calendar; // Define calendar in the outer scope
+            if (calendarElt) {
+                let mediaQuery = window.matchMedia("(max-width: 1000px)");
+
+                function updateCalendarDuration() {
+                    if (calendar && mediaQuery.matches) {
+                        calendar.changeView('timeGridThreeDay');
+                    } else if (calendar) {
+                        calendar.changeView('timeGridWeek');
+                    }
+                }
+
+                            window.onload = () => {
+                calendar = new FullCalendar.Calendar(calendarElt, {
+
+                    eventContent: function (arg) {
+
+
+                        return {
+
+                            html: arg.event.title
+                        };
+
+                    },
+
+                    initialView: 'timeGridWeek',
+                    views: {
+                        timeGridThreeDay: {
+                            type: 'timeGrid',
+                            duration: {days: 3}
+                        },
+                        timeGridWeek: {
+                            type: 'timeGrid',
+                            duration: {days: 7}
+                        }
+                    },
+                    locale: 'fr',
+                    timeZone: 'Europe/Paris',
+                    headerToolbar: {
+                        start: 'prev,next today',
+                        center: 'title',
+                        end: 'dayGridMonth,timeGridThreeDay,timeGridWeek'
+                    },
+                    buttonText: {
+                        today: 'Aujourd\'hui',
+                        month: 'Mois',
+                        timeGridThreeDay: '3 jours',
+                        timeGridWeek: '7 jours'
+                    },
+                    events: {{ data|raw }} ,
+                    {#    events: {{ dump(data|raw) }}, #}
+
+                });
+
+                calendar.on('eventClick', (e) => {
+                    let donnees = {
+                        "id": e.event.id
+                    };
+                    let id = donnees.id;
+                    let url = "https://127.0.0.1:8000/calendar/" + id;
+                    window.location.href = url;
+                });
+
+                                calendar.render();
+                                updateCalendarDuration(); // Initial call to set the calendar duration
+
+                               // console.log('Page loaded');
+                            };
+
+                    mediaQuery.addEventListener('change', () => {
+                      //  console.log('Media query change event:', mediaQuery.matches);
+                        updateCalendarDuration();
+                    });
+                } else {
+                 console.error('Calendar element not found!');
+                }
+        });
+    </script>
 {% endblock %}
