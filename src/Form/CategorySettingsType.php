@@ -18,7 +18,7 @@ class CategorySettingsType extends AbstractType
             ->add('textColor')
             ->add('borderColor')
             ->add('backGroundColor')
-            ->add('category')
+          //  ->add('category')
         ;
     }
 

@@ -13,13 +13,13 @@ class Activitie extends Calendar
 {
 
     #[ORM\Column]
-    private ?int $stock = null;
+    protected ?int $stock = null;
 
     #[ORM\Column]
-    private ?int $price = null;
+    protected ?int $price = null;
 
     #[ORM\Column]
-    private ?int $modifiedPrice = null;
+    protected ?int $modifiedPrice = null;
 
 
 

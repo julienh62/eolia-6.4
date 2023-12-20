@@ -19,7 +19,7 @@ class ActivitieCategorySettingsType extends CategorySettingsType
         $builder
 
             ->add('price')
-            ->add('category')
+          //  ->add('category')
           /*  ->add('category', EntityType::class, [
                 'class' => Category::class,
 'choice_label' => 'id',

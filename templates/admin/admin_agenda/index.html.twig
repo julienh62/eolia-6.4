@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AgendaController!{% endblock %}
+{% block title %}Hello Admin AgendaController!{% endblock %}
 
 {% block body %}
     <h1>Calendrier de toutes les séances </h1>
@@ -31,23 +31,30 @@
                             window.onload = () => {
                 calendar = new FullCalendar.Calendar(calendarElt, {
 
-             eventContent: function (arg) {
-                    // Récupération de la valeur de stock depuis arg.event.extendedProps
-                     let stockg = arg.event.extendedProps.stock;
+            
+           eventContent: function (arg) {
+                   // Récupération de la valeur de stock depuis arg.event.extendedProps
+             let stockg = arg.event.extendedProps.stock;
 
-                     // Vérification si stockg est null, isnan pour verifier si c'est un chiffre si oui, affecter 0
-                     if (stockg === null || stockg === undefined || isNaN(stockg)) {
-                       stockg = 0;
-                    }
+            // Vérification si stockg est null, isnan pour verifier si c'est un chiffre si oui, affecter 0
+               if (stockg === null || stockg === undefined || isNaN(stockg)) {
+                 stockg = 0;
+             }
 
-                    // Conversion de stockg en entier en utilisant parseInt avec base 10
-                    let stock = parseInt(stockg, 10);
+            // Conversion de stockg en entier en utilisant parseInt avec base 10
+             let stock = parseInt(stockg, 10);
 
-                    // Affichage du résultat de la conversion de stock dans la console
-                    //console.log('stock', stock);
+            // Affichage du résultat de la conversion de stock dans la console
+             //console.log('stock', stock);
 
-             
-             // Récupération de la valeur de quantityCommanded depuis arg.event.extendedProps
+            // Récupération de la valeur de staffs depuis arg.event.extendedProps
+             let staffs = arg.event.extendedProps.staffs;
+                  if (staffs === null || staffs === undefined ) {
+                 staffs = "Aucun staff";
+             }
+            //    console.log('staff', staffs);
+
+            // Récupération de la valeur de quantityCommanded depuis arg.event.extendedProps
              let quantityCommandedg = arg.event.extendedProps.quantityCommanded;
 
             // Vérification si quantityCommandedg est null, si oui, affecter 0
@@ -61,61 +68,19 @@
             // Affichage du résultat de la conversion de quantityCommanded dans la console
              //console.log('quantityCommanded', quantityCommanded);
 
-
-              let stockHtml = '<div class="event-stock"> ' + 'Il reste : '  + stock + ' places' + '</div>'; 
-             //   let fullNameHtml = '<div class="event-q"> ' + ' staff :'+ fullName + '</div>';
-             // let quantitecommandeHtml = '<div class="event-q"> ' + 'place déja prise :'+ quantitecommande + '</div>';
-             //  let idHtml = '<div class="event-stock"> ' + arg.event.id + '</div>';
-
-                let titleStyle = 'font-weight: bold; font-size: 20px;';
-
-              return {
-                html:  '<div style="' + titleStyle + '">' + arg.event.title + '</div>' + stockHtml 
-              //  html:  '<div style="' + titleStyle + '">' + arg.event.title + '</div>' + stockHtml + quantityCommandedHtml
-              //html: stockHtml + quantitecommandeHtml + arg.event.title + idHtml 
-              };
-
-            },
-       /*    eventContent: function (arg) {
-                  // Récupération de la valeur de stock depuis arg.event.extendedProps
-             let stockg = arg.event.extendedProps.stock;
-
-            // Vérification si stockg est null, si oui, affecter 0
-             if (stockg === null) {
-                 stockg = 0;
-             }
-             // Conversion de stockg en entier en utilisant parseInt avec base 10
-             let stock = parseInt(stockg, 10);
-
-            // Affichage du résultat de la conversion de stock dans la console
-            // console.log('stock', stock);
-
-         
-
-               // Récupération de la valeur de quantityCommanded depuis arg.event.extendedProps
-             let quantityCommandedg = arg.event.extendedProps.quantityCommanded;
-
-            // Vérification si quantityCommandedg est null, si oui, affecter 0
-             if (quantityCommandedg === null) {
-                 quantityCommandedg = 0;
-             }
-
-            // Conversion de quantityCommandedg en entier en utilisant parseInt avec base 10
-             let quantityCommanded = parseInt(quantityCommandedg, 10);
-
-            // Affichage du résultat de la conversion de quantityCommanded dans la console
-            // console.log('quantityCommanded', quantityCommanded);
-
- // Calcul de totalPlace en ajoutant stock et quantityCommanded
+            // Calcul de totalPlace en ajoutant stock et quantityCommanded
              let totalPlace = stock + quantityCommanded;
 
             // Affichage du résultat de totalPlace dans la console
-             console.log('totalplace', totalPlace);
+            // console.log('totalplace', totalPlace);
 
-
+            // Affichage du contenu de staffs dans la console
+             //console.log('Contenu de staffs :', staffs);
 
 
              let stockHtml = '<div class="event-stock"> '  + stock + '</div>';
+
+             let staffsHtml = '<div class="event-q"> ' + ' staff :'+ staffs + '</div>';
 
     
              let totalPlaceHtml = '<div class="event-q"> ' + totalPlace + '</div>';
@@ -123,18 +88,20 @@
              let placeHtml = '<div class="event-q"> ' +  quantityCommanded + ' / ' +  totalPlace + '</div>';
      
             let quantityCommandedHtml = '';
-            if (quantityCommanded === 0) {
+        /*     if (isNaN(quantityCommanded)) {
+               quantityCommanded = 0; 
                 quantityCommandedHtml = '<div class="event-quantity"> ' + ' déjà pris: 0 ' + '</div>';
             } else {
                 quantityCommandedHtml = '<div class="event-quantity"> ' + ' déjà pris : ' + quantityCommanded + '</div>';
-            }
+            }   */
             let titleStyle = 'font-weight: bold; font-size: 20px;';
             return {
                // html:  '<div style="' + titleStyle + '">' + arg.event.title + '</div>' + stockHtml + quantityCommandedHtml
-                 html:  '<div style="' + titleStyle + '">' + arg.event.title + '</div>' + placeHtml 
+                 html:  '<div style="' + titleStyle + '">' + arg.event.title + '</div>' + placeHtml +  staffsHtml
 
             };
-        },  */
+        },
+
                     initialView: 'timeGridWeek',
                     views: {
                         timeGridThreeDay: {

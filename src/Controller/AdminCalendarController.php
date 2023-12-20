@@ -16,11 +16,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin')]
+#[Route('/admin/calendar')]
 class AdminCalendarController extends AbstractController
 {
 
-    #[Route('/calendarshow', name: 'app_admin_calendar_index', methods: ['GET'])]
+    #[Route('/', name: 'app_admin_calendar_index', methods: ['GET'])]
     public function index(CalendarRepository $calendarRepository, ActivitieRepository $activitieRepository,
       Formatdate $formatdateService , StaffScheduleRepository $staffScheduleRepository): Response
     {
