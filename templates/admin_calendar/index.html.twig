@@ -4,14 +4,12 @@
 
 {% block body %}
     <h1>Calendar index</h1>
-        {#  {{dump(activities) }} #}
+      {#  {{dump(calendars) }} #}
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Title</th>
-                <th>Category</th>
-                <th>BorderColor</th>
                 <th>Staff</th>
                 <th>Start</th>
                 <th>End</th>
@@ -88,9 +86,7 @@
             <tr>
                 <td>{{ calendar.id }}</td>
                 <td>{{ calendar.title }}</td>
-                <td>{{ calendar.category }}</td>
-                <td>{{ calendar.category.categorySetting.borderColor }}</td>
-                {#  <td>{{ calendar.category.calendarCategorySettings.price }}</td>#}
+
                 <td>{% for staff in calendar.staffs %}
                         Staff:  {{ staff.fullName }}
                     {% endfor %}</td>

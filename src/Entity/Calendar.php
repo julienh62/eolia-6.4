@@ -33,9 +33,6 @@ use Doctrine\ORM\Mapping as ORM;
      protected ?\DateTimeInterface $end = null;
 
 
-    #[ORM\ManyToOne(inversedBy: 'calendars')]
-    #[ORM\JoinColumn(nullable: false)]
-    protected ?Category $category = null;
 
     #[ORM\ManyToMany(targetEntity: Staff::class, cascade: ['remove'], inversedBy: 'calendars')]
     #[ORM\JoinColumn(nullable: true)]
@@ -87,17 +84,7 @@ use Doctrine\ORM\Mapping as ORM;
          return $this;
      }
 
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
 
-    public function setCategory(?Category $category): static
-    {
-        $this->category = $category;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Staff>

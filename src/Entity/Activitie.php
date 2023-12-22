@@ -21,8 +21,14 @@ class Activitie extends Calendar
     #[ORM\Column]
     protected ?int $modifiedPrice = null;
 
+    #[ORM\OneToOne(mappedBy: 'activitie', cascade: ['persist', 'remove'])]
+    private ?ActivitieSettings $activitieSettings = null;
 
 
+    public function __toString()
+    {
+        return $this->title;
+    }
 
     public function getStock(): ?int
     {
@@ -56,6 +62,23 @@ class Activitie extends Calendar
     public function setModifiedPrice(int $modifiedPrice): static
     {
         $this->modifiedPrice = $modifiedPrice;
+
+        return $this;
+    }
+
+    public function getActivitieSettings(): ?ActivitieSettings
+    {
+        return $this->activitieSettings;
+    }
+
+    public function setActivitieSettings(ActivitieSettings $activitieSettings): static
+    {
+        // set the owning side of the relation if necessary
+        if ($activitieSettings->getActivitie() !== $this) {
+            $activitieSettings->setActivitie($this);
+        }
+
+        $this->activitieSettings = $activitieSettings;
 
         return $this;
     }

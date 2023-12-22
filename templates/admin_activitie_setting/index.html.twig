@@ -1,0 +1,43 @@
+ {% extends 'base.html.twig' %}
+
+    {% block title %}ActivitieSettings index{% endblock %}
+
+    {% block body %}
+        <h1>ActivitieSetting index</h1>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>TextColor</th>
+                <th>BorderColor</th>
+                <th>BackGroundColor</th>
+                <th>actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for activitie in activities %}
+                <tr>
+                    <td>{{ activitie.id }}</td>
+                    <td>{{ activitie.title }}</td>
+                    <td>{{ activitie.textColor }}</td>
+                    <td>{{ activitie.borderColor }}</td>
+                    <td>{{ activitie.backGroundColor }}</td>
+                    <td>
+                       {# <a href="{{ path('app_admin_activitie_show', {'id': activitie.id}) }}">show</a>
+                        <a href="{{ path('app_admin_activitie_edit', {'id': activitie.id}) }}">edit</a>#}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_admin_formChooseActivitie') }}">Create new</a>
+    {% endblock %}
+
+

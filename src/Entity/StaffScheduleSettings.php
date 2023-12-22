@@ -2,18 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\CategorySettingsRepository;
+use App\Repository\StaffScheduleSettingsRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-//#[ORM\Entity(repositoryClass: CategorySettingsRepository::class)]
-#[ORM\Entity]
-#[ORM\InheritanceType("JOINED")]
-#[ORM\DiscriminatorColumn(name: "type", type: "string")]
-#[ORM\DiscriminatorMap([
-    "category_settings" => "CategorySettings",
-    "activitie_category_settings" => "ActivitieCategorySettings"
-])]
-class CategorySettings
+#[ORM\Entity(repositoryClass: StaffScheduleSettingsRepository::class)]
+class StaffScheduleSettings
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -32,16 +25,13 @@ class CategorySettings
     #[ORM\Column(length: 255)]
     private ?string $backGroundColor = null;
 
-    #[ORM\OneToOne(mappedBy: 'categorySetting', cascade: ['persist', 'remove'])]
-    private ?Category $category = null;
+    #[ORM\OneToOne(inversedBy: 'staffScheduleSettings', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?StaffSchedule $staffSchedule = null;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-    public function __toString()
-    {
-        return $this->title;
     }
 
     public function getTitle(): ?string
@@ -92,24 +82,14 @@ class CategorySettings
         return $this;
     }
 
-    public function getCategory(): ?Category
+    public function getStaffSchedule(): ?StaffSchedule
     {
-        return $this->category;
+        return $this->staffSchedule;
     }
 
-    public function setCategory(?Category $category): static
+    public function setStaffSchedule(StaffSchedule $staffSchedule): static
     {
-        // unset the owning side of the relation if necessary
-        if ($category === null && $this->category !== null) {
-            $this->category->setCategorySetting(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($category !== null && $category->getCategorySetting() !== $this) {
-            $category->setCategorySetting($this);
-        }
-
-        $this->category = $category;
+        $this->staffSchedule = $staffSchedule;
 
         return $this;
     }

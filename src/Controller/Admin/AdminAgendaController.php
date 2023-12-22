@@ -55,9 +55,9 @@ class AdminAgendaController extends AbstractController
                         'stock' => $event->getStock(),
                         'staffs' => $staffFullName,
                         'title' => $event->getTitle(),
-                        'backgroundColor' => $event->getCategory()->getCategorySetting()->getBackGroundColor(),
-                        'borderColor' => $event->getCategory()->getCategorySetting()->getBorderColor(),
-                        'textColor' => $event->getCategory()->getCategorySetting()->getTextColor(),
+                        'backgroundColor' => $event->getActivitieSettings()->getBackGroundColor(),
+                        'borderColor' => $event->getActivitieSettings()->getBorderColor(),
+                        'textColor' => $event->getActivitieSettings()->getTextColor(),
                     ];
 
                     //ici on n'appelle pas le stock staffplaning
@@ -67,9 +67,9 @@ class AdminAgendaController extends AbstractController
                         'end' => $event->getEnd()->format('Y-m-d H:i:s'),
                         'staffs' => $staffFullName,
                         'title' => $event->getTitle(),
-                        'backgroundColor' => $event->getCategory()->getCategorySetting()->getBackGroundColor(),
-                        'borderColor' => $event->getCategory()->getCategorySetting()->getBorderColor(),
-                        'textColor' => $event->getCategory()->getCategorySetting()->getTextColor(),
+                        'backgroundColor' => $event->getStaffScheduleSettings()->getBackGroundColor(),
+                        'borderColor' => $event->getStaffScheduleSettings()->getBorderColor(),
+                        'textColor' => $event->getStaffScheduleSettings()->getTextColor(),
                     ];
                 }
             }

@@ -16,8 +16,8 @@ class ActivitieType extends CalendarType
         $builder
 
             ->add('stock')
-            ->add('price')
-            ->add('modifiedPrice')
+         //   ->add('price')
+         //   ->add('modifiedPrice')
 
           /*  ->add('category', EntityType::class, [
                 'class' => Category::class,

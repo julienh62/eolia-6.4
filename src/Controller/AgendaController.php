@@ -35,9 +35,9 @@ class AgendaController extends AbstractController
                       'end' => $event->getEnd()->format('Y-m-d H:i:s'),
                       'stock' => $event->getStock(),
                       'title' => $event->getTitle(),
-                      'backgroundColor' => $event->getCategory()->getCategorySetting()->getBackGroundColor(),
-                      'borderColor' => $event->getCategory()->getCategorySetting()->getBorderColor(),
-                      'textColor' => $event->getCategory()->getCategorySetting()->getTextColor(),
+                      'backgroundColor' => $event->getActivitieSettings()->getBackGroundColor(),
+                      'borderColor' => $event->getActivitieSettings()->getBorderColor(),
+                      'textColor' => $event->getActivitieSettings()->getTextColor(),
 
                   ];
 
@@ -45,7 +45,7 @@ class AgendaController extends AbstractController
               }  
 
           $data = json_encode($rdvs);
-          //  dd($data);
+            // dd($data);
           return $this->render('agenda/index.html.twig', [
               'data' => json_encode($rdvs),  // Incluez les données existantes
           ]);

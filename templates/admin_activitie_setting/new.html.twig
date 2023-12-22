@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New CategorySettings{% endblock %}
+{% block title %}New ActivitieSettings{% endblock %}
 
 {% block body %}
-   {#  {% for categori in filteredCategoriesSettings %}
+    {#  {% for categori in filteredCategoriesSettings %}
         <h1>Creates {{ categori.title }}</h1>
 <h1>Creates {{ categoriesSettings.title }}</h1>
         <!-- Ajoutez ici d'autres informations à afficher pour chaque categori -->
@@ -12,7 +12,7 @@
 
 
 
-    {{ include('admin_category_setting/_form.html.twig') }}
+    {{ include('admin_activitie_setting/_form.html.twig') }}
 
-    <a href="{{ path('app_admin_category_setting_index') }}">back to list</a>
+    <a href="{{ path('app_admin_activitie_setting') }}">back to list</a>
 {% endblock %}

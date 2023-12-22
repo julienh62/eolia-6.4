@@ -26,7 +26,7 @@ class CalendarType extends AbstractType
                 'class' => Category::class,
 'choice_label' => 'id',
             ])*/
-            ->add('category')
+
             ->add('staffs', EntityType::class, [
                 'class' => Staff::class,
                 'multiple' => true, // Permettre plusieurs sélections
