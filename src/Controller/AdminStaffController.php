@@ -17,7 +17,7 @@ class AdminStaffController extends AbstractController
     #[Route('/', name: 'app_admin_staff_index', methods: ['GET'])]
     public function index(StaffRepository $staffRepository): Response
     {
-        return $this->render('admin_staff/index.html.twig', [
+        return $this->render('admin_staff/login.html.twig', [
             'staff' => $staffRepository->findAll(),
         ]);
     }

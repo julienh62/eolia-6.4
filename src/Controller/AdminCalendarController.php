@@ -46,7 +46,7 @@ class AdminCalendarController extends AbstractController
             $calendar->formattedEndDate = $formatdateService->formatCustomDate($calendar->getEnd());
         }
 
-        return $this->render('admin_calendar/index.html.twig', [
+        return $this->render('admin_calendar/login.html.twig', [
           //  'staffSchedules' => $staffSchedules,
             //'activities' => $activities,
                 'calendars' => $calendars

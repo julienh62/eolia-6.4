@@ -17,7 +17,7 @@ class AdminStaffScheduleController extends AbstractController
     #[Route('/', name: 'app_admin_staff_schedule_index', methods: ['GET'])]
     public function index(StaffScheduleRepository $staffScheduleRepository): Response
     {
-        return $this->render('admin_staff_schedule/index.html.twig', [
+        return $this->render('admin_staff_schedule/login.html.twig', [
             'staff_schedules' => $staffScheduleRepository->findAll(),
         ]);
     }

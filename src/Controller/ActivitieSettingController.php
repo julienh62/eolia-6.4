@@ -21,7 +21,7 @@ class ActivitieSettingController extends AbstractController
         $activities = $activitieSettingsRepository->findAll();
       //  $scheduleStaffs = $staffScheduleSettingsRepository->findAll();
         //    dd($scheduleStaffs);
-        return $this->render('admin_activitie_setting/index.html.twig', [
+        return $this->render('admin_activitie_setting/login.html.twig', [
             'activities' => $activities,
            // 'scheduleStaffs' => $scheduleStaffs,
         ]);

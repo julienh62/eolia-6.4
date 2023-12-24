@@ -22,7 +22,7 @@ class StaffScheduleSettingController extends AbstractController
        // $activities = $activitieSettingsRepository->findAll();
         $scheduleStaffs = $staffScheduleSettingsRepository->findAll();
 
-        return $this->render('admin_staffschedule_setting/index.html.twig', [
+        return $this->render('admin_staffschedule_setting/login.html.twig', [
           // 'activities' => $activities,
             'scheduleStaffs' => $scheduleStaffs,
         ]);

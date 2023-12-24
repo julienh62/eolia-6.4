@@ -17,7 +17,7 @@ class AdminActivitieController extends AbstractController
     #[Route('/', name: 'app_admin_activitie_index', methods: ['GET'])]
     public function index(ActivitieRepository $activitieRepository): Response
     {
-        return $this->render('admin_activitie/index.html.twig', [
+        return $this->render('admin_activitie/login.html.twig', [
             'activities' => $activitieRepository->findAll(),
         ]);
     }
