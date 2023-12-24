@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 class StaffSchedule extends Calendar
 {
     #[ORM\OneToOne(mappedBy: 'staffSchedule', cascade: ['persist', 'remove'])]
-    private ?StaffScheduleSettings $staffScheduleSettings = null;
+    protected ?StaffScheduleSettings $staffScheduleSettings = null;
 
     public function __toString()
     {

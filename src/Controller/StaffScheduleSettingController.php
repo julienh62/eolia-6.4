@@ -2,12 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\ScheduleStaffSettings;
 use App\Entity\StaffScheduleSettings;
-use App\Form\ScheduleStaffSettingsType;
 use App\Form\StaffScheduleSettingsType;
 use App\Repository\ActivitieRepository;
-use App\Repository\ScheduleStaffRepository;
 use App\Repository\ActivitieSettingsRepository;
 use App\Repository\StaffScheduleRepository;
 use App\Repository\StaffScheduleSettingsRepository;
@@ -17,32 +14,36 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/admin')]
-class ScheduleStaffSettingController extends AbstractController
+class StaffScheduleSettingController extends AbstractController
 {
     #[Route('/ScheduleStaffSetting', name: 'app_admin_ScheduleStaff_setting')]
-    public function index(ActivitieSettingsRepository $activitieSettingsRepository, StaffScheduleRepository $staffScheduleRepository): Response
+    public function index(StaffScheduleSettingsRepository $staffScheduleSettingsRepository): Response
     {
-        $activities = $activitieSettingsRepository->findAll();
-        $scheduleStaffs = $staffScheduleRepository->findAll();
+       // $activities = $activitieSettingsRepository->findAll();
+        $scheduleStaffs = $staffScheduleSettingsRepository->findAll();
 
-        return $this->render('admin_activitie_setting/index.html.twig', [
-            'activities' => $activities,
+        return $this->render('admin_staffschedule_setting/index.html.twig', [
+          // 'activities' => $activities,
             'scheduleStaffs' => $scheduleStaffs,
         ]);
     }
-    #[Route('/activitiesettingChoose', name: 'app_admin_formChooseActivitie')]
+ /*   #[Route('/staffsettingChoose', name: 'app_admin_formChooseStaff')]
     public function chooseActivitieForm(ActivitieRepository $activitieRepository,StaffScheduleRepository $staffScheduleRepository, ActivitieSettingsRepository $activitieSettingsRepository): Response
     {
         $activitiesSettings = $activitieSettingsRepository->findAll();
         $scheduleStaffs = $staffScheduleRepository->findAll();
         $activities = $activitieRepository->findAll();
         //dd($activities);
-        return $this->render('admin_activitie_setting/chooseActivitieSetting.html.twig', [
+        return $this->render('admin_staffschedule_setting/chooseScheduleSetting.html.twig', [
             'activitiesSettings' => $activitiesSettings,
             'activities' => $activities,
             'scheduleStaffs' => $scheduleStaffs,
         ]);
     }
+
+*/
+
+
     #[Route('/ScheduleStaffSettingNew', name: 'app_admin_scheduleStaffs_setting_new', methods: ['GET', 'POST'])]
     public function new(Request $request, StaffScheduleSettingsRepository $staffScheduleSettingsRepository): Response
     {

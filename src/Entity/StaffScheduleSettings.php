@@ -11,23 +11,23 @@ class StaffScheduleSettings
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    protected ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $title = null;
+    protected ?string $title = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $textColor = null;
+    protected ?string $textColor = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $borderColor = null;
+    protected ?string $borderColor = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $backGroundColor = null;
+    protected ?string $backGroundColor = null;
 
     #[ORM\OneToOne(inversedBy: 'staffScheduleSettings', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private ?StaffSchedule $staffSchedule = null;
+    protected ?StaffSchedule $staffSchedule = null;
 
     public function getId(): ?int
     {
