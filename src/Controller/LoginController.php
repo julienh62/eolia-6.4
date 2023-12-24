@@ -11,18 +11,24 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
   class LoginController extends AbstractController
   {
       #[Route('/login', name: 'app_login')]
-     public function index(AuthenticationUtils $authenticationUtils): Response
+      public function index(AuthenticationUtils $authenticationUtils): Response
       {
-         // get the login error if there is one
-         $error = $authenticationUtils->getLastAuthenticationError();
+          // If user is already authenticated, redirect to a specific route (e.g., homepage)
+            if ($this->getUser()) {
+                   return $this->redirectToRoute('app_agenda');
+               }
+           // dd($this->getUser());
 
-         // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
+          // get the login error if there is one
+          $error = $authenticationUtils->getLastAuthenticationError();
+
+          // last username entered by the user
+          $lastUsername = $authenticationUtils->getLastUsername();
 
           return $this->render('login/index.html.twig', [
-             'controller_name' => 'LoginController',
-             'last_username' => $lastUsername,
-             'error'         => $error,
+              'controller_name' => 'LoginController',
+              'last_username' => $lastUsername,
+              'error'         => $error,
           ]);
       }
 
