@@ -47,36 +47,49 @@ class AdminAgendaController extends AbstractController
                   $staffFullName = implode(', ', $staffNames);
                    // dd($staffFullName);
 
-                //avec methode getStock() pour Activitie
-                if ($event instanceof \App\Entity\Activitie) {
-                    $rdvs[] = [
-                        'start' => $event->getStart()->format('Y-m-d H:i:s'),
-                        'end' => $event->getEnd()->format('Y-m-d H:i:s'),
-                        'stock' => $event->getStock(),
-                        'staffs' => $staffFullName,
-                        'title' => $event->getTitle(),
-                        'backgroundColor' => $event->getActivitieSettings()->getBackGroundColor(),
-                        'borderColor' => $event->getActivitieSettings()->getBorderColor(),
-                        'textColor' => $event->getActivitieSettings()->getTextColor(),
-                    ];
+//avec methode getStock() pour Activitie
+if ($event instanceof \App\Entity\Activitie) {
+    $rdvs[] = [
+        'start' => $event->getStart()->format('Y-m-d H:i:s'),
+        'end' => $event->getEnd()->format('Y-m-d H:i:s'),
+        'stock' => $event->getStock(),
+        'staffs' => $staffFullName,
+        'title' => $event->getTitle(),
+        'backgroundColor' => $event->getActivitieSettings()->getBackGroundColor(),
+        'borderColor' => $event->getActivitieSettings()->getBorderColor(),
+        'textColor' => $event->getActivitieSettings()->getTextColor(),
+    ];
+} elseif ($event instanceof \App\Entity\StaffSchedule) {
+    $staffScheduleSettings = $event->getStaffScheduleSettings();
+    if ($staffScheduleSettings !== null) {
+        $rdvs[] = [
+            'start' => $event->getStart()->format('Y-m-d H:i:s'),
+            'end' => $event->getEnd()->format('Y-m-d H:i:s'),
+            'staffs' => $staffFullName,
+            'title' => $event->getTitle(),
+            'backgroundColor' => $staffScheduleSettings->getBackGroundColor(),
+            'borderColor' => $staffScheduleSettings->getBorderColor(),
+            'textColor' => $staffScheduleSettings->getTextColor(),
+        ];
+    } else {
+        // Gérez le cas où StaffScheduleSettings est null
+        // Définissez des valeurs par défaut ou gérez-le en conséquence
+        $backgroundColor = '#d3dce3';
+        $borderColor = '#ffffff';
+        $textColor = '#000000';
 
-                    //ici on n'appelle pas le stock staffplaning
-                } elseif ($event instanceof \App\Entity\StaffSchedule) {
-                    $rdvs[] = [
-                        'start' => $event->getStart()->format('Y-m-d H:i:s'),
-                        'end' => $event->getEnd()->format('Y-m-d H:i:s'),
-                        'staffs' => $staffFullName,
-                        'title' => $event->getTitle(),
-                        'backgroundColor' => $event->getStaffScheduleSettings()->getBackGroundColor(),
-                        'borderColor' => $event->getStaffScheduleSettings()->getBorderColor(),
-                        'textColor' => $event->getStaffScheduleSettings()->getTextColor(),
-                    ];
-                }
-            }
-            
-
-            
-
+        $rdvs[] = [
+            'start' => $event->getStart()->format('Y-m-d H:i:s'),
+            'end' => $event->getEnd()->format('Y-m-d H:i:s'),
+            'staffs' => $staffFullName,
+            'title' => $event->getTitle(),
+            'backgroundColor' => $backgroundColor,
+            'borderColor' => $borderColor,
+            'textColor' => $textColor,
+        ];
+    }
+}
+}
 
           $data = json_encode($rdvs);
           // dd($data);
@@ -84,5 +97,5 @@ class AdminAgendaController extends AbstractController
               'data' => json_encode($rdvs),  // Incluez les données existantes
           ]);
       }
+    }
 
-}

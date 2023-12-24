@@ -45,14 +45,14 @@
              let stock = parseInt(stockg, 10);
 
             // Affichage du résultat de la conversion de stock dans la console
-             //console.log('stock', stock);
+            console.log('stock', stock);
 
             // Récupération de la valeur de staffs depuis arg.event.extendedProps
              let staffs = arg.event.extendedProps.staffs;
                   if (staffs === null || staffs === undefined ) {
                  staffs = "Aucun staff";
              }
-            //    console.log('staff', staffs);
+             console.log('staff', staffs);
 
             // Récupération de la valeur de quantityCommanded depuis arg.event.extendedProps
              let quantityCommandedg = arg.event.extendedProps.quantityCommanded;
@@ -66,16 +66,16 @@
              let quantityCommanded = parseInt(quantityCommandedg, 10);
 
             // Affichage du résultat de la conversion de quantityCommanded dans la console
-             //console.log('quantityCommanded', quantityCommanded);
+            console.log('quantityCommanded', quantityCommanded);
 
             // Calcul de totalPlace en ajoutant stock et quantityCommanded
              let totalPlace = stock + quantityCommanded;
 
             // Affichage du résultat de totalPlace dans la console
-            // console.log('totalplace', totalPlace);
+             console.log('totalplace', totalPlace);
 
             // Affichage du contenu de staffs dans la console
-             //console.log('Contenu de staffs :', staffs);
+             console.log('Contenu de staffs :', staffs);
 
 
              let stockHtml = '<div class="event-stock"> '  + stock + '</div>';

@@ -17,7 +17,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
             if ($this->getUser()) {
                    return $this->redirectToRoute('app_agenda');
                }
-           // dd($this->getUser());
+         // dd($this->getUser());
 
           // get the login error if there is one
           $error = $authenticationUtils->getLastAuthenticationError();
